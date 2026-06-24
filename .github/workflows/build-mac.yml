@@ -1,0 +1,27 @@
+name: Build Mac Version
+on: [push, workflow_dispatch]
+
+jobs:
+  release:
+    runs-on: macos-latest # 🍏 Spins up a cloud Mac server automatically!
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Package Mac Build
+        run: npm run electron:build -- --mac
+
+      - name: Upload Mac App Zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: Blossom-Notes-Mac
+          path: dist/*.dmg
