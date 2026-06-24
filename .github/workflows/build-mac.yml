@@ -3,7 +3,7 @@ on: [push, workflow_dispatch]
 
 jobs:
   release:
-    runs-on: macos-latest # 🍏 Spins up a cloud Mac server automatically!
+    runs-on: macos-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -24,4 +24,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Blossom-Notes-Mac
-          path: dist/*.dmg
+          path: dist_electron/*.dmg # 🌸 Fixed path to match your folder!
