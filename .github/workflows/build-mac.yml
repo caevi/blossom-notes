@@ -18,7 +18,7 @@ jobs:
         run: npm install
 
       - name: Package Mac Build
-        run: npm run electron:build -- --mac
+        run: npm run electron:build -- --mac --publish never
 
       - name: Upload Mac App Zip
         uses: actions/upload-artifact@v4
