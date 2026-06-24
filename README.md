@@ -1,75 +1,31 @@
-# React + TypeScript + Vite
+🌸 Blossom Notes — Installation Guide for macOS
+Welcome to Blossom Notes! Because this is a custom-built app made just for you, macOS will be a little overprotective when you try to open it the first time.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Follow these simple steps to download, install, and unlock the app on your Mac in under a minute!
 
-Currently, two official plugins are available:
+📥 Step 1: Download & Install
+Download the Blossom-Notes-Mac.zip file from the shared link.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Double-click the .zip file on your Mac to extract it. You will see a file named Blossom Notes-1.0.0-arm64.dmg (or the raw app icon).
 
-## React Compiler
+Double-click the .dmg file and drag the Blossom Notes app icon directly into your Applications folder.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🛡️ Step 2: Fix the "App is Damaged" Warning
+Because Apple doesn't recognize this as a commercial store app yet, it will likely show a scary popup saying: "Blossom Notes is damaged and can't be opened. You should move it to the Trash." Don't worry, the app isn't actually damaged! This is just a security quarantine flag. Here is how to clear it:
 
-## Expanding the ESLint configuration
+Press Cmd + Space on your keyboard, type Terminal, and press Enter.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Copy and paste this exact command into the Terminal window, but do not press Enter yet (make sure there is a space at the end!):
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Bash
+xattr -cr 
+Open your Applications folder in Finder, find Blossom Notes, and drag and drop the icon directly into the Terminal window. The line should now look like this:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Bash
+xattr -cr /Applications/Blossom\ Notes.app
+Press Enter on your keyboard.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+(Note: Terminal will not show a success message; it will just jump to a clean new line. That means it worked perfectly!)
 
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+🎉 Step 3: Open & Enjoy!
+Go back to your Applications folder and double-click Blossom Notes. It will now open up beautifully, completely bypass the restriction, and be ready for you to write your notes! 🌸
