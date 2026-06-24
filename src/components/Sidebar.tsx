@@ -6,12 +6,9 @@ type Props = {
   activeId?: string
   onSelect: (id: string | '') => void // 🌟 Updated to support dashboard clearing ('')
   onCreate: () => void
-
   onDeleteRequest: (id: string) => void
-
   view: 'notes' | 'trash'
   setView: (v: 'notes' | 'trash') => void
-
   onRestore: (id: string) => void
 }
 
@@ -31,6 +28,7 @@ export default function Sidebar({
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.3 }}
+      style={{ position: 'relative' }} // Gives the new button an anchor point
     >
       {/* 🌸 Header */}
       <div className="sidebar-header">
@@ -42,7 +40,17 @@ export default function Sidebar({
         >
           🌸 Blossom Notes
         </h1>
-        <button onClick={onCreate}>+ New</button>
+        
+        {/* Only show the add button if we are not looking at the trash */}
+        {view === 'notes' && (
+          <button 
+            className="sidebar-add-btn" 
+            onClick={onCreate}
+            title="Create New Note"
+          >
+            ＋
+          </button>
+        )}
       </div>
 
       {/* 🗂️ Tabs */}
@@ -51,7 +59,7 @@ export default function Sidebar({
           className={view === 'notes' ? 'active' : ''}
           onClick={() => setView('notes')}
         >
-          Notes 🌸
+          Notes 📝
         </button>
 
         <button
@@ -118,6 +126,4 @@ export default function Sidebar({
       </div>
     </motion.div>
   )
-
-  
 }

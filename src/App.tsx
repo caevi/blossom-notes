@@ -33,6 +33,9 @@ export default function App() {
     return localStorage.getItem('activeNoteId') || ''
   })
 
+  // ⏰ Live Clock State
+  const [time, setTime] = useState(new Date())
+
   // ⚠️ This tracks notes queued for PERMANENT deletion
   const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null)
   const [view, setView] = useState<'notes' | 'trash'>('notes')
@@ -40,6 +43,12 @@ export default function App() {
   const activeNote = view === 'notes' 
     ? notes.find(n => n.id === activeNoteId)
     : trash.find(n => n.id === activeNoteId)
+
+  // ⏰ Live Clock Effect Loop
+  useEffect(() => {
+    const timer = setInterval(() => setTime(new Date()), 1000)
+    return () => clearInterval(timer) // Cleanup loop container on unmount
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
@@ -72,7 +81,7 @@ export default function App() {
     const newNote: Note = {
       id: Date.now().toString(),
       title: 'New Note 💕',
-      content: 'Start writing something sweet...',
+      content: 'Start writing your thoughts here...',
       modifiedAt: generateTimestamp()
     }
     setNotes([newNote, ...notes])
@@ -118,14 +127,13 @@ export default function App() {
 
   return (
     <div className="app-container" style={{ position: 'relative' }}>
-   
-    
-
-
-  
-
       <FloatingHearts />
       <LovePopup />
+
+      {/* 🌸 Elegant Live Clock Widget */}
+      <div className="live-clock-widget">
+        🌸 {time.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true })}
+      </div>
 
       <Sidebar
         notes={view === 'notes' ? notes : trash}

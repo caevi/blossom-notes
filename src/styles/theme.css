@@ -54,6 +54,13 @@ button:hover {
   border-radius: 10px;
   color: white;
 }
+.sidebar-add-btn{
+ 
+  border: none;
+  padding: 6px 10px;
+  border-radius: 10px;
+  color: white;
+}
 
 /* =========================
    🌸 TABS
@@ -478,12 +485,32 @@ button:hover {
   display: block;
   box-shadow: 0 4px 15px rgba(255, 143, 177, 0.15);
 }
-/* 🌸 1. Shrink and constrain the drag strip so it stays out of the way */
 
 
-/* 🌸 3. Ensure the Sidebar options aren't being crushed by something else */
+
+/* 🌸 3. Ensure the Sidebar options aren't being crushed by something else 
 .sidebar, .sidebar-actions, .create-btn {
   position: relative;
-  z-index: 20 !important; /* Pushes the layout safely above the drag strip layer */
+  z-index: 20 !important; /* Pushes the layout safely above the drag strip layer 
   -webkit-app-region: no-drag !important;
+} */
+
+.live-clock-widget {
+  position: absolute;
+  top: 16px;
+  right: 24px; /* Back to the top right */
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff5c8a;
+  border: 1px solid rgba(255, 163, 190, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 143, 177, 0.1);
+  pointer-events: none;
+  letter-spacing: 0.5px;
 }

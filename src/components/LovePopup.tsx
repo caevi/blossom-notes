@@ -7,7 +7,10 @@ const messages = [
   "Take it one step at a time, love 💌",
   "You deserve softness today 🧸",
   "Even on hard days, you are still loved 💖",
-  "I hope you smile a little today 🌷"
+  "I hope you smile a little today 🌷",
+  "You are my favorite person in the world 💕",
+  "I love you more than words can say 💌",
+  "I miss you and I hope you feel my love from afar 💖"
 ]
 
 export default function LovePopup() {

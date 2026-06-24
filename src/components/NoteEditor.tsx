@@ -6,7 +6,7 @@ import Underline from '@tiptap/extension-underline'
 import { TextStyle } from '@tiptap/extension-text-style' 
 import { Color } from '@tiptap/extension-color'
 import Image from '@tiptap/extension-image'
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {
   note?: Note
@@ -18,8 +18,8 @@ type Props = {
 }
 
 export default function NoteEditor({ note, notes, view, onSelect, onUpdate, onDeleteForever }: Props) {
-  // 🌟 Keep track of the active note ID to prevent content overrides while typing
-  const lastActiveIdRef = useRef<string | undefined>(note?.id)
+  // 🌟 Local state for the title to guarantee lightning-fast typing responses
+  const [localTitle, setLocalTitle] = useState(note?.title || '')
 
   const getTimestamp = () => {
     return new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ' • ' + new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
@@ -50,21 +50,35 @@ export default function NoteEditor({ note, notes, view, onSelect, onUpdate, onDe
     },
   })
 
-  // 🌟 FIX: Only force set content when explicitly clicking a completely different note file
+  // 🌟 FIX: Reset states ONLY when explicitly selecting/swapping to a different note document
   useEffect(() => {
-    if (!editor) return
-
     if (note) {
-      if (lastActiveIdRef.current !== note.id) {
-        // Swap workspace canvas only because the user selected an alternative note ID
+      setLocalTitle(note.title)
+      
+      if (editor && editor.getHTML() !== note.content) {
         editor.commands.setContent(note.content)
-        lastActiveIdRef.current = note.id
       }
-      editor.setEditable(view !== 'trash') 
-    } else {
-      lastActiveIdRef.current = undefined
     }
-  }, [note?.id, editor, view, note])
+  }, [note?.id, editor])
+
+  // 🌟 Sync editable permissions depending on if it's in the active list or trash bin
+  useEffect(() => {
+    if (editor) {
+      editor.setEditable(view !== 'trash')
+    }
+  }, [view, editor])
+
+  // Handle live title keystroke propagation safely
+  const handleTitleChange = (newTitle: string) => {
+    setLocalTitle(newTitle)
+    if (note) {
+      onUpdate({
+        ...note,
+        title: newTitle,
+        modifiedAt: getTimestamp()
+      })
+    }
+  }
 
   // Handle local image file importing
   const addImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,9 +143,10 @@ export default function NoteEditor({ note, notes, view, onSelect, onUpdate, onDe
 
       <input
         className="title-input"
-        value={note.title}
+        value={localTitle}
         disabled={view === 'trash'}
-        onChange={(e) => onUpdate({ ...note, title: e.target.value, modifiedAt: getTimestamp() })}
+        onChange={(e) => handleTitleChange(e.target.value)}
+        placeholder="Untitled Note"
       />
 
       {/* 🌸 Modern Ribbon Formatting Toolbar */}

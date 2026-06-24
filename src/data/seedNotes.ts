@@ -4,13 +4,13 @@ export const seedNotes: Note[] = [
   {
     id: '1',
     title: 'For you 💕',
-    content: 'I hope today treats you softly and kindly.',
+    content: 'I hope today treats you softly and kindly. I love you baby. You are my everything.',
     modifiedAt: 'Jun 24, 2026'
   },
   {
     id: '2',
     title: 'Reminder 🌸',
-    content: 'You are doing better than you think.',
+    content: 'You are doing better than you think. ',
     modifiedAt: 'Jun 23, 2026'
   },
   {
